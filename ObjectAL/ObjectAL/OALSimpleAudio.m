@@ -28,6 +28,14 @@
 //
 
 #import "OALSimpleAudio.h"
+
+#if __CC_PLATFORM_ANDROID
+#import <BridgeKitV3/AndroidMediaPlayer.h>
+#import <BridgeKitV3/JavaFileInputStream.h>
+#import <BridgeKitV3/JavaFileDescriptor.h>
+#import "CCActivity.h"
+#endif
+
 #import "ObjectALMacros.h"
 #import "ARCSafe_MemMgmt.h"
 #import "OALAudioSession.h"
@@ -228,6 +236,7 @@ initFailed:
 	}
 }
 
+#if __CC_PLATFORM_IOS
 - (bool) allowIpod
 {
 	return [OALAudioSession sharedInstance].allowIpod;
@@ -247,7 +256,7 @@ initFailed:
 {
 	[OALAudioSession sharedInstance].useHardwareIfAvailable = value;
 }
-
+#endif
 
 - (int) reservedSources
 {
@@ -261,7 +270,9 @@ initFailed:
 
 @synthesize channel;
 
+#if __CC_PLATFORM_IOS || __CC_PLATFORM_MAC
 @synthesize backgroundTrack;
+#endif
 
 - (bool) bgPaused
 {

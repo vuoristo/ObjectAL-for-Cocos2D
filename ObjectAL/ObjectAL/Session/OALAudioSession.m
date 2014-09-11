@@ -28,10 +28,14 @@
 //
 
 #import "OALAudioSession.h"
-#import <AudioToolbox/AudioToolbox.h>
+
 #import "ObjectALMacros.h"
 #import "ARCSafe_MemMgmt.h"
 #import "OALNotifications.h"
+
+#if __CC_PLATFORM_IOS
+
+#import <AudioToolbox/AudioToolbox.h>
 #import "IOSVersion.h"
 
 
@@ -772,8 +776,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(OALAudioSession);
 
 @end
 
-#else
+#endif /* __IPHONE_OS_VERSION_MAX_ALLOWED */
 
+
+#elif __CC_PLATFORM_ANDROID || __CC_PLATFORM_MAC
+#pragma mark Android OALAudioSession
+#import "CCDirector.h"
 @implementation OALAudioSession
 
 #pragma mark Object Management
@@ -794,6 +802,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(OALAudioSession);
 		honorSilentSwitch = NO;
 
 		self.audioSessionActive = YES;
+#if __CC_PLATFORM_ANDROID
+        [[CCDirector sharedDirector] addObserver:self
+                                      forKeyPath:@"isPaused"
+                                         options:(NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld)
+                                         context:NULL];
+#endif
 	}
 	return self;
 }
@@ -822,6 +836,21 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(OALAudioSession);
 @synthesize hardwareMuted;
 
 #pragma mark Suspend Handler
+
+#if __CC_PLATFORM_ANDROID
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context {
+    if ([keyPath isEqual:@"isPaused"]) {
+        if ([[CCDirector sharedDirector] isPaused]) {
+            [self setManuallySuspended:YES];
+        } else {
+            [self setManuallySuspended:NO];
+        }
+    }
+}
+#endif
 
 - (void) addSuspendListener:(id<OALSuspendListener>) listener
 {
@@ -880,4 +909,4 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(OALAudioSession);
 
 @end
 
-#endif
+#endif /* __CC_PLATFORM_IOS/MAC/ANDROID */

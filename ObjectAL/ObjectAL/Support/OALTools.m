@@ -31,8 +31,13 @@
 #import "ObjectALMacros.h"
 #import "ARCSafe_MemMgmt.h"
 #import "OALNotifications.h"
+#import "CCFileUtils.h"
+
+#if __CC_PLATFORM_IOS || __CC_PLATFORM_MAC
+
 #import <AudioToolbox/AudioToolbox.h>
 
+#endif
 
 @implementation OALTools
 
@@ -65,16 +70,13 @@ static NSBundle* g_defaultBundle;
 	{
 		return nil;
 	}
-	NSString* fullPath = path;
-	if([fullPath characterAtIndex:0] != '/')
-	{
-		fullPath = [bundle pathForResource:path ofType:nil];
-		if(nil == fullPath)
-		{
-			OAL_LOG_ERROR(@"Could not find full path of file %@", path);
-			return nil;
-		}
-	}
+	
+    NSString* fullPath = [[CCFileUtils sharedFileUtils] fullPathForFilenameIgnoringResolutions:path];
+    if(nil == fullPath)
+    {
+        OAL_LOG_ERROR(@"Could not find full path of file %@", path);
+        return nil;
+    }
 	
 	return [NSURL fileURLWithPath:fullPath];
 }
@@ -89,6 +91,7 @@ static NSBundle* g_defaultBundle;
 		
 		switch(errorCode)
 		{
+#if !__CC_PLATFORM_ANDROID
 #ifdef __IPHONE_3_1
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_3_1
 			case kExtAudioFileError_CodecUnavailableInputConsumed:
@@ -129,6 +132,7 @@ static NSBundle* g_defaultBundle;
 			case kExtAudioFileError_AsyncWriteBufferOverflow:
 				errorString = @"Async write could not be completed in time";
 				break;
+#endif
 			default:
 				errorString = @"Unknown ext audio error";
 		}
@@ -154,6 +158,7 @@ static NSBundle* g_defaultBundle;
 		
 		switch(errorCode)
 		{
+#if !__CC_PLATFORM_ANDROID
 			case kAudioSessionNotInitialized:
 				errorString = @"Audio session not initialized";
 				postNotification = YES;
@@ -194,6 +199,7 @@ static NSBundle* g_defaultBundle;
 				break;
 #endif /* __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_3_1 */
 #endif /* __IPHONE_3_1 */
+#endif
 			default:
 				errorString = @"Unknown audio session error";
 				postNotification = YES;

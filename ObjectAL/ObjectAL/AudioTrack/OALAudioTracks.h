@@ -25,6 +25,8 @@
 // Attribution is not required, but appreciated :)
 //
 
+#import "ccMacros.h"
+
 #import "OALAudioTrack.h"
 #import "SynthesizeSingleton.h"
 #import "OALSuspendHandler.h"

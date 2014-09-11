@@ -325,12 +325,18 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(OpenALManager);
 {
 	if(value)
 	{
+#if __CC_PLATFORM_ANDROID
+        alcSuspend();
+#endif
 		[ALWrapper makeContextCurrent:nil];
 	}
 	else
 	{
 		[ALWrapper makeContextCurrent:self.realCurrentContext.context
 					  deviceReference:self.realCurrentContext.device.device];
+#if __CC_PLATFORM_ANDROID
+        alcResume();
+#endif
 	}
 }
 

@@ -32,7 +32,7 @@
 #import "ObjectALMacros.h"
 #import "ARCSafe_MemMgmt.h"
 #import "NSMutableArray+WeakReferences.h"
-#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
+#if defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && !__CC_PLATFORM_ANDROID
 #import <UIKit/UIKit.h>
 #endif
 
@@ -71,7 +71,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(OALActionManager);
 		actionsToAdd = [[NSMutableArray alloc] initWithCapacity:100];
 		actionsToRemove = [[NSMutableArray alloc] initWithCapacity:100];
 
-#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
+#if __CC_PLATFORM_IOS
 		[[NSNotificationCenter defaultCenter] addObserver:self
 												 selector:@selector(doResetTimeDelta:)
 													 name:UIApplicationSignificantTimeChangeNotification
