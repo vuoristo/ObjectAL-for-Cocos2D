@@ -310,17 +310,17 @@
 }
 
 - (void) _updateVolume {
-    double right = 0;
-    double left = 0;
+    float right = 0;
+    float left = 0;
     if (muted) {
         left = 0;
         right = 0;
     } else {
         // Constant power panning
-        float piovr2 = 4.0 * atanf(1.0) * 0.5;
-        float root2ovr2 = sqrtf(2.0) * 0.5;
+        float piovr2 = 4.0f * atanf(1.0) * 0.5f;
+        float root2ovr2 = sqrtf(2.0) * 0.5f;
         float thispos = pan * piovr2;
-        float angle = thispos * 0.5;
+        float angle = thispos * 0.5f;
         left = root2ovr2 * (cosf(angle) - sinf(angle));
         right = root2ovr2 * (cosf(angle) + sinf(angle));
         left *= gain;
