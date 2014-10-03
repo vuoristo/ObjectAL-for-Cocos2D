@@ -750,11 +750,18 @@
         player.pan = pan;
 
 #elif __CC_PLATFORM_ANDROID
-        NSString *path = [url path];
+        NSURL *fullURL = [OALTools urlForPath:[url relativeString]];
+        NSString *path = [fullURL path];
         NSString *bundlePath = [[NSBundle mainBundle] bundlePath];
+        
         if ([path hasPrefix:bundlePath]) {
-            NSInteger bundlePathLength = [bundlePath length] + 1;
+            NSUInteger bundlePathLength = [bundlePath length] + 1;
             path = [path substringWithRange:NSMakeRange(bundlePathLength, [path length] - bundlePathLength)];
+        }
+        
+        if (![[NSFileManager defaultManager] fileExistsAtPath:path]){
+            OAL_LOG_ERROR(@"%@ Could not find file at path:%@", self, path);
+            return NO;
         }
         player = [[AndroidMediaPlayer alloc] init];
         AndroidAssetFileDescriptor *assetFd = [[[CCActivity currentActivity] assets] openFdWithFileName:path];
