@@ -36,8 +36,9 @@
 #import "ARCSafe_MemMgmt.h"
 
 #if __CC_PLATFORM_ANDROID
-#import <BridgeKitV3/AndroidMediaPlayer.h>
-#import <BridgeKitV3/AndroidAssetFileDescriptor.h>
+#import <AndroidKit/AndroidAssetFileDescriptor.h>
+#import <AndroidKit/AndroidAssetManager.h>
+#import <JavaKit/JavaFileDescriptor.h>
 #import "CCActivity.h"
 #endif
 
@@ -764,7 +765,7 @@
             return NO;
         }
         player = [[AndroidMediaPlayer alloc] init];
-        AndroidAssetFileDescriptor *assetFd = [[[CCActivity currentActivity] assets] openFdWithFileName:path];
+        AndroidAssetFileDescriptor *assetFd = [[[CCActivity currentActivity] assets] openFd:path];
         if (assetFd.fileDescriptor && [assetFd.fileDescriptor valid]) {
             [player reset];
             [player setDataSource:assetFd.fileDescriptor offset:assetFd.startOffset length:assetFd.length];
