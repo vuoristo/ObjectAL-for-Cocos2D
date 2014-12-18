@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		466FD3D91A428ACE00A22559 /* JavaFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 466FD3D81A428ACE00A22559 /* JavaFoundation.framework */; };
 		CB05BF97171F423D0056FCF7 /* SynthesizeSingleton.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CBBAB393171D0C0F009B955F /* SynthesizeSingleton.h */; };
 		CBBAB314171D0B84009B955F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBBAB313171D0B84009B955F /* Foundation.framework */; };
 		CBBAB396171D0C0F009B955F /* OALAction.m in Sources */ = {isa = PBXBuildFile; fileRef = CBBAB354171D0C0E009B955F /* OALAction.m */; };
@@ -414,6 +415,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		466EC2D71A427FDD00850332 /* JavaFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaFoundation.framework; path = "../../../../../Library/Application Support/Developer/Shared/Xcode/Platforms/Android.platform/Developer/SDKs/SBAndroid.sdk/System/Library/Frameworks/JavaFoundation.framework"; sourceTree = "<group>"; };
+		466FD3D81A428ACE00A22559 /* JavaFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaFoundation.framework; path = "../../../../../Library/Application Support/Developer/Shared/Xcode/Platforms/Android.platform/Developer/SDKs/ApportableSDK1.0.sdk/System/Library/Frameworks/JavaFoundation.framework"; sourceTree = "<group>"; };
 		CB5E9944171D1A43004CF421 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/AudioToolbox.framework; sourceTree = DEVELOPER_DIR; };
 		CB5E9946171D1A4F004CF421 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		CB5E9948171D1A58004CF421 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/OpenAL.framework; sourceTree = DEVELOPER_DIR; };
@@ -518,6 +521,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				466FD3D91A428ACE00A22559 /* JavaFoundation.framework in Frameworks */,
 				FC7A511B19C77D8700F0B563 /* libtremor.a in Frameworks */,
 				FC3995CD19C3B80E00C93E5E /* Foundation.framework in Frameworks */,
 			);
@@ -567,6 +571,8 @@
 		CBBAA82B171D05AA009B955F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				466FD3D81A428ACE00A22559 /* JavaFoundation.framework */,
+				466EC2D71A427FDD00850332 /* JavaFoundation.framework */,
 				FC64014119C797E8003E595A /* AVFoundation.framework */,
 				FCE54A7619C3C086003CB54C /* libogg.a */,
 				CB5E9944171D1A43004CF421 /* AudioToolbox.framework */,
