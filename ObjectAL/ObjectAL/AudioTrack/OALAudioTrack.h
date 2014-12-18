@@ -48,7 +48,7 @@
 #if __CC_PLATFORM_IOS || __CC_PLATFORM_MAC
 @interface OALAudioTrack : NSObject <AVAudioPlayerDelegate,OALSuspendManager>
 #elif __CC_PLATFORM_ANDROID
-@interface OALAudioTrack : JavaObject <OALSuspendManager>
+@interface OALAudioTrack : NSObject <OALSuspendManager>
 #endif
 {
     /** If true, this track is recording metering data */
